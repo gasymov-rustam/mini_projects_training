@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState } from 'react';
+import cln from './App.module.scss';
 
-function App() {
+interface AppProps {}
+
+export const App: FC<AppProps> = () => {
+  const [counter, setCounter] = useState<number>(0);
+
+  const handleClick = (isDecrement: boolean) => () => {
+    if (isDecrement) {
+      setCounter((prev) => prev + 1);
+    } else {
+      setCounter((prev) => prev - 1);
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={cln.App}>
+      <div>
+        <h2>Counter: </h2>
+        <h1>{counter}</h1>
+        <button className={cln.minus} onClick={handleClick(false)}>
+          Minus
+        </button>
+        <button className={cln.plus} onClick={handleClick(true)}>
+          Plus
+        </button>
+      </div>
     </div>
   );
-}
-
-export default App;
+};
